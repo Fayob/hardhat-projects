@@ -13,5 +13,9 @@
     "@nomiclabs/hardhat-etherscan": "^3.1.8",
     "hardhat": "^2.22.16",
     "hardhat-gas-reporter": "^2.2.1"
+  },
+  "dependencies": {
+    "all": "^0.0.0",
+    "dotenv": "^16.4.5"
   }
 }
