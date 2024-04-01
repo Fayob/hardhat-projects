@@ -1,5 +1,5 @@
 // imports
-const { ethers, network } = require("hardhat");
+const { ethers, run, network } = require("hardhat");
 
 // async main
 async function main() {
@@ -13,6 +13,7 @@ async function main() {
 
   if (network.config.chainId === 11155111 && process.env.ETHERSCAN_API_KEY) {
       await simpleStorage.deploymentTransaction().wait(6)
+      await verify(contractAddress, [])
   }
 
   const currentValue = await simpleStorage.retrieve();
@@ -23,6 +24,22 @@ async function main() {
   await transactionResponse.wait(1);
   const updatedValue = await simpleStorage.retrieve();
   console.log(`Updated Value is: ${updatedValue}`);
+}
+
+async function verify(contractAddress, args) {
+  console.log("Verfying contract....");
+  try {
+    await run("verify:verify", {
+      address: contractAddress,
+      constructorArguments: args,
+    });
+  } catch (error) {
+    if (error.message.toLowerCase().includes("already verified")) {
+      console.log("Already Verified!");
+    } else {
+      console.log(error);
+    }
+  }
 }
 
 // main
