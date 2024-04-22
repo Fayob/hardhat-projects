@@ -147,4 +147,41 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         }
         emit WinnerPicked(recentWinner);
     }
+
+    /* view / pure */
+    function getEntranceFee() public view returns (uint256) {
+        return i_entranceFee;
+    }
+
+    function getPlayer(uint256 index) public view returns (address) {
+        return s_players[index];
+    }
+
+    function getRecentWinner() public view returns (address) {
+        return s_recentWinner;
+    }
+
+    function getRaffleState() public view returns (RaffleState) {
+        return s_raffleState;
+    }
+
+    function getNumWords() public pure returns (uint256) {
+        return NUM_WORDS;
+    }
+
+    function getNumberOfPlayer() public view returns(uint256) {
+        return s_players.length;
+    }
+
+    function getLatestTimeStamp() public view returns (uint256) {
+        return s_lastTimeStamp;
+    }
+
+    function getRequestConfirmation() public pure  returns (uint256) {
+        return REQUEST_CONFIRMATIONS;
+    }
+
+    function getInterval() public view  returns (uint256) {
+        return i_interval;
+    }
 }
